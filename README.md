@@ -16,7 +16,7 @@ Upload local dir to aerwave using SOL.
 
 
 ### generate-new-metadata
-Generate new metadata of giving mint list
+Generate new aerwave metadata with edition number of a giving mint list
 | Name    | Description    |
 | ------- | -----------    |
 | -r, --rpc <string> |Solana rpc    |
