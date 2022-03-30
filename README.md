@@ -2,6 +2,10 @@
 
 Candy machine common scripts used to fix metadata
 
+You can run using 
+
+ts-node index.ts <command-name> --<parameters>
+
 ### upload-to-aerwave
 Upload local dir to aerwave using SOL.
 | Name    | Description    |
