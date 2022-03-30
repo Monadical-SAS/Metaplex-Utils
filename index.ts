@@ -37,7 +37,7 @@ programCommand('upload-to-aerwave')
     })
 
 programCommand('generate-new-metadata')
-    .description('Generate new metadata of giving mint list')
+    .description('Generate new aerwave metadata with edition number of a giving mint list')
     .option('-m, --mints-path <string>', 'json mints file', "./mints.json")
     .option('-b, --batch-size <number>', 'batch size', "10")
     .action(async (directory: string, cmd: any) => {
