@@ -4,6 +4,7 @@ logs
 mints.json
 result.json
 yarn.lock
+cache
 *.log
 npm-debug.log*
 yarn-debug.log*

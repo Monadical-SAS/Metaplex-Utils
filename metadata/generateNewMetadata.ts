@@ -3,6 +3,7 @@ import axios from "axios";
 import { Metadata } from "@metaplex-foundation/mpl-token-metadata";
 import { resolveManyRequest } from "../utils";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+import { withdrawBundlr } from "../aerwave/aerwave-bundle";
 
 const FOLDER_NAME = "./assets"
 type ChainMetadataParameters = {
@@ -14,7 +15,7 @@ const retrieveOnChainMetadata = async ({ connection, mint }: ChainMetadataParame
     const onchain = (await Metadata.load(connection as Connection, pda)).data
     return { ...onchain.data, mint: mint }
 }
-const retrieveExternalMetadata = async (onchainMetadata : any) => {
+const retrieveExternalMetadata = async (onchainMetadata: any) => {
     const metadataExternal = (await axios.get(onchainMetadata.uri)).data;
     return {
         onChainMetadata: onchainMetadata,

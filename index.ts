@@ -29,10 +29,16 @@ programCommand('upload-to-aerwave')
     .option('-o, --output <path>', 'Output file', 'result.json')
     .option('-k, --keypair <path>', `Solana wallet location`, '--keypair not provided')
     .option('-e, --env <string>', 'Solana cluster env name', DEFAULT_ENV)
+    .option('-c, --cache <string>', 'Cache file', "cache")
     .action(async (directory: string, cmd: any) => {
-        const { keypair, env, rpc, dirname, output } = cmd.opts();
-        const result = await uploadBundle(keypair as string, env as string, rpc as string, dirname as string)
-        writeFileSync(output, JSON.stringify(result))
+        const { keypair, env, rpc, dirname, output, cache } = cmd.opts();
+        const cacheContent = await uploadBundle(
+            keypair as string,
+            env as string,
+            rpc as string,
+            dirname as string,
+            cache as string
+        )
         console.log(`${output} file created successfully`)
     })
 
