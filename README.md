@@ -2,6 +2,19 @@
 
 Candy machine common scripts used to fix metadata
 
+You can run using 
+
+  ``ts-node index.ts <command-name> --<parameters>``
+
+### generate-new-metadata
+Generate new aerwave metadata with edition number of a giving mint list
+| Name    | Description    |
+| ------- | -----------    |
+| -r, --rpc <string> |Solana rpc    |
+| -m, --mints-path <string> |json mints file    |
+| -b, --batch-size <number> |batch size    |
+
+
 ### upload-to-aerwave
 Upload local dir to aerwave using SOL.
 | Name    | Description    |
@@ -15,14 +28,7 @@ Upload local dir to aerwave using SOL.
 
 
 
-### generate-new-metadata
-Generate new aerwave metadata with edition number of a giving mint list
-| Name    | Description    |
-| ------- | -----------    |
-| -r, --rpc <string> |Solana rpc    |
-| -m, --mints-path <string> |json mints file    |
-| -b, --batch-size <number> |batch size    |
-  
+
   
 Usage: index [options] [command]
 
