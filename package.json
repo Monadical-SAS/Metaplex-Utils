@@ -1,0 +1,30 @@
+{
+  "name": "CandyMachineUtils",
+  "version": "1.0.0",
+  "description": "Candy machine common scripts and utils",
+  "main": "index.js",
+  "repository": "https://github.com/Monadical-SAS/candy-machine-utils",
+  "author": "Kevin Guevara <kevinguevaradevia@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "commander": "^9.0.0",
+    "loglevel": "^1.8.0",
+    "@bundlr-network/client": "^0.5.18",
+    "@metaplex-foundation/mpl-token-metadata": "^1.2.5",
+    "@metaplex/arweave-cost": "^1.0.4",
+    "@project-serum/anchor": "^0.17.0",
+    "@solana/web3.js": "^1.33.0",
+    "@supercharge/promise-pool": "^2.1.0",
+    "arbundles": "^0.6.15",
+    "arweave": "^1.10.23",
+    "axios": "^0.26.1",
+    "cli-progress": "^3.10.0",
+    "json2csv": "^5.0.7",
+    "xlsx": "^0.18.2"
+  },
+  "devDependencies": {
+    "@types/cli-progress": "^3.9.2",
+    "@types/node": "^17.0.23"
+  }
+}
