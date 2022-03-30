@@ -23,7 +23,6 @@ const retrieveExternalMetadata = async (onchainMetadata : any) => {
 }
 const generateNewMetadata = async (mintsPath: string, batchSize: number, rpc: string) => {
     const connection = new Connection(rpc)
-    console.log(mintsPath, batchSize, rpc)
     const mintsToReveal = JSON.parse(readFileSync(mintsPath).toString()) as Array<string>
     let items = await resolveManyRequest(retrieveOnChainMetadata, mintsToReveal.map(mint => ({
         connection,

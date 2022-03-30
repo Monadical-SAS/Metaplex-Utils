@@ -3,6 +3,9 @@ import { Keypair, } from '@solana/web3.js';
 import { StorageType } from "./helpers/storage-type";
 import { makeArweaveBundleUploadGenerator } from "./aerwave-bundle";
 
+type Response = {
+    [key: string]: any
+}
 
 const loadWalletKey = (keypair: any) => {
     if (!keypair || keypair == '') {
@@ -30,11 +33,15 @@ async function uploadBundle(keypair: string, env: string, rpc: string, dirname: 
         100,
     );
     let result = arweaveBundleUploadGenerator.next();
+    const responseData = {} as Response
     while (!result.done) {
         const data = await result.value
+        for (let i = 0; i < data.cacheKeys.length; i++) {
+            responseData[data.cacheKeys[i] as string] = data.arweavePathManifestLinks[i]
+        }
         result = arweaveBundleUploadGenerator.next();
     }
-
+    return responseData
 }
 
 export default uploadBundle
