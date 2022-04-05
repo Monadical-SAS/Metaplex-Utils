@@ -91,5 +91,5 @@ const template = `
 `
 
 const doc = CommandDocument.parse(program as any)
-console.log(doc.render(template))
+//console.log(doc.render(template))
 program.parse(process.argv);
