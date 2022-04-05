@@ -8,6 +8,7 @@ You can run using
   ``ts-node index.ts <command-name> <parameters>``
 
 Use this two scripts if you want to update aerwave metadata of a NFTs list. 
+You can obtain the mint list using this. https://metaboss.rs/snapshot.html#snapshot-mints
 
 ### upload-to-aerwave
 If you have to upload aerwave files in batch without create a candy machine and using SOL$ instead of Aerwave coins, you can use this script for that, just have to specify your RPC, the keypair of your wallet and the directory to upload.
@@ -31,7 +32,7 @@ If you have to upload aerwave files in batch without create a candy machine and 
 ### generate-new-metadata
 When you use CANDY MACHINE V2, there's a common problem related to edition name, as you already now all the editions use the same metadata link and this link doesn't have the edition number. (This problem is also common when you edit the metadata on chain). So, for that we created this little script that given a mint list recreate the aerwave metadata but now with the on chain name. 
  
-You can optain the mint list using this. https://metaboss.rs/snapshot.html#snapshot-mints
+
  
 | Name    | Description    |
 | ------- | -----------    |
