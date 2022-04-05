@@ -1,9 +1,8 @@
 import * as fs from "fs";
+import { appendFileSync, readFileSync } from "fs";
 import { Keypair, } from '@solana/web3.js';
 import { StorageType } from "./helpers/storage-type";
 import { makeArweaveBundleUploadGenerator, withdrawBundlr } from "./aerwave-bundle";
-import { appendFileSync, readFileSync } from "fs";
-import { json } from "stream/consumers";
 
 type Response = {
     [key: string]: any
@@ -48,7 +47,7 @@ async function uploadBundle(keypair: string, env: string, rpc: string, dirname: 
         appendFileSync(cache, JSON.stringify(responseData))
         appendFileSync(cache, "\n")
     }
-    if(env != "devnet"){
+    if (env != "devnet") {
         await withdrawBundlr(walletKeyPair)
     }
     let data = {}
