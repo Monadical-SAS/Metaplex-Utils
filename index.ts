@@ -1,6 +1,6 @@
 import { program } from 'commander';
 import log from 'loglevel';
-import uploadBundle from "./aerwave/upload";
+import uploadBundle from "./arweave/upload";
 import { writeFileSync } from "fs";
 import generateNewMetadata from "./metadata/generateNewMetadata";
 import { CommandDocument } from "@mitsuru793/commander-document-generator";
@@ -23,8 +23,8 @@ function programCommand(name: string) {
 
 
 // @ts-ignore
-programCommand('upload-to-aerwave')
-    .description('Upload local dir to aerwave using SOL.')
+programCommand('upload-to-arweave')
+    .description('Upload local dir to arweave using SOL.')
     .option('-d, --dirname <string>', 'Local folder to read files', "assets")
     .option('-o, --output <path>', 'Output file', 'result.json')
     .option('-k, --keypair <path>', `Solana wallet location`, '--keypair not provided')
@@ -43,7 +43,7 @@ programCommand('upload-to-aerwave')
     })
 
 programCommand('generate-new-metadata')
-    .description('Generate new aerwave metadata with edition number of a giving mint list')
+    .description('Generate new arweave metadata with edition number of a giving mint list')
     .option('-m, --mints-path <string>', 'json mints file', "./mints.json")
     .option('-b, --batch-size <number>', 'batch size', "10")
     .action(async (directory: string, cmd: any) => {

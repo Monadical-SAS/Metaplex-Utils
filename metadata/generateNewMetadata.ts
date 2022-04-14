@@ -3,7 +3,7 @@ import axios from "axios";
 import { Metadata } from "@metaplex-foundation/mpl-token-metadata";
 import { resolveManyRequest } from "../utils";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
-import { withdrawBundlr } from "../aerwave/aerwave-bundle";
+import { withdrawBundlr } from "../arweave/arweave-bundle";
 
 const FOLDER_NAME = "./assets"
 type ChainMetadataParameters = {
@@ -19,7 +19,7 @@ const retrieveExternalMetadata = async (onchainMetadata: any) => {
     const metadataExternal = (await axios.get(onchainMetadata.uri)).data;
     return {
         onChainMetadata: onchainMetadata,
-        aerwaveMetadata: metadataExternal
+        arweaveMetadata: metadataExternal
     }
 }
 const generateNewMetadata = async (mintsPath: string, batchSize: number, rpc: string) => {
@@ -31,8 +31,8 @@ const generateNewMetadata = async (mintsPath: string, batchSize: number, rpc: st
     })), batchSize)
     items = await resolveManyRequest(retrieveExternalMetadata, items, batchSize)
     for (const item of items) {
-        if (item.aerwaveMetadata.name.replace(/\D/g, '').length === 0) {
-            const newMetadata = { ...item.aerwaveMetadata }
+        if (item.arweaveMetadata.name.replace(/\D/g, '').length === 0) {
+            const newMetadata = { ...item.arweaveMetadata }
             newMetadata.name = item.onChainMetadata.name
             if (!existsSync(FOLDER_NAME)) {
                 mkdirSync(FOLDER_NAME)

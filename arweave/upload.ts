@@ -2,7 +2,7 @@ import * as fs from "fs";
 import { appendFileSync, readFileSync } from "fs";
 import { Keypair, } from '@solana/web3.js';
 import { StorageType } from "./helpers/storage-type";
-import { makeArweaveBundleUploadGenerator, withdrawBundlr } from "./aerwave-bundle";
+import { makeArweaveBundleUploadGenerator, withdrawBundlr } from "./arweave-bundle";
 
 type Response = {
     [key: string]: any
