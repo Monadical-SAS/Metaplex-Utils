@@ -5,6 +5,7 @@ import { writeFileSync } from "fs";
 import generateNewMetadata from "./metadata/generateNewMetadata";
 import { CommandDocument } from "@mitsuru793/commander-document-generator";
 import { getEditions, getMastersEditionsOwners } from "./editions/getEditions";
+import {cacheToJsonOutput} from "./arweave/helpers/cacheToJsonOutput";
 
 log.setLevel('info');
 program.version('1.1.0');
@@ -39,6 +40,10 @@ programCommand('upload-to-arweave')
             dirname as string,
             cache as string
         )
+
+        const outputJson = cacheToJsonOutput(cacheContent);
+        writeFileSync(output, JSON.stringify(outputJson));
+
         console.log(`${output} file created successfully`)
     })
 
