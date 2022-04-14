@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { appendFileSync, readFileSync } from "fs";
+import { appendFileSync, readFileSync, existsSync, writeFileSync } from "fs";
 import { Keypair, } from '@solana/web3.js';
 import { StorageType } from "./helpers/storage-type";
 import { makeArweaveBundleUploadGenerator, withdrawBundlr } from "./arweave-bundle";
@@ -18,6 +18,10 @@ const loadWalletKey = (keypair: any) => {
 }
 
 async function uploadBundle(keypair: string, env: string, rpc: string, dirname: string, cache: string) {
+    if (!existsSync(cache)) {
+        writeFileSync(cache, '');
+    }
+
     let inCacheFiles = {}
     for (const line of readFileSync(cache).toString().split("\n").filter(e => e)) {
         inCacheFiles = Object.assign(inCacheFiles, JSON.parse(line))
