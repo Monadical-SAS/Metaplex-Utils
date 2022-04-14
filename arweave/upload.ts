@@ -35,6 +35,7 @@ async function uploadBundle(keypair: string, env: string, rpc: string, dirname: 
         env,
         undefined,
         1,
+        rpc
     );
     let result = arweaveBundleUploadGenerator.next();
     while (!result.done) {
