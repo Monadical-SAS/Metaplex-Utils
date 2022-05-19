@@ -32,15 +32,17 @@ const generateNewMetadata = async (mintsPath: string, batchSize: number, rpc: st
     items = await resolveManyRequest(retrieveExternalMetadata, items, batchSize)
     for (const item of items) {
         const newMetadata = { ...item.arweaveMetadata }
-        newMetadata.properties.category = "video"
-        newMetadata.properties.files = [
-            { uri: newMetadata.image, type: "image/png" },
-            { uri: newMetadata.animation_url, type: "video/mp4" },
-        ]
-        if (!existsSync(FOLDER_NAME)) {
-            mkdirSync(FOLDER_NAME)
+        if(newMetadata.properties.category !== "video"){
+            newMetadata.properties.category = "video"
+            newMetadata.properties.files = [
+                { uri: newMetadata.image, type: "image/png" },
+                { uri: newMetadata.animation_url, type: "video/mp4" },
+            ]
+            if (!existsSync(FOLDER_NAME)) {
+                mkdirSync(FOLDER_NAME)
+            }
+            writeFileSync(`${FOLDER_NAME}/${item.onChainMetadata.mint}.json`, JSON.stringify(newMetadata));
         }
-        writeFileSync(`${FOLDER_NAME}/${item.onChainMetadata.mint}.json`, JSON.stringify(newMetadata));
     }
 }
 export default generateNewMetadata
