@@ -404,7 +404,7 @@ export function* makeArweaveBundleUploadGenerator(
                     'solana',
                     walletKeyPair.secretKey,
                     {
-                        timeout: 60000,
+                        timeout: 180000,
                         providerUrl: rpcUrl ?? 'https://api.metaplex.solana.com/',
                     },
                 )
@@ -413,7 +413,7 @@ export function* makeArweaveBundleUploadGenerator(
                     'solana',
                     walletKeyPair.secretKey,
                     {
-                        timeout: 60000,
+                        timeout: 180000,
                         providerUrl: 'https://metaplex.devnet.rpcpool.com',
                     },
                 )
