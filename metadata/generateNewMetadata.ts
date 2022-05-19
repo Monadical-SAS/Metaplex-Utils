@@ -34,7 +34,7 @@ const generateNewMetadata = async (mintsPath: string, batchSize: number, rpc: st
         if (item.arweaveMetadata.name.replace(/\D/g, '').length === 0) {
             const newMetadata = { ...item.arweaveMetadata }
             newMetadata.properties.category = "video"
-            newMetadata.files = [
+            newMetadata.properties.files = [
                 {uri: item.image, type: "image/png"},
                 {uri: item.animation_url, type: "video/mp4"},
             ]
