@@ -1,7 +1,7 @@
 import { MasterEdition, Metadata } from "@metaplex-foundation/mpl-token-metadata";
 import { Connection, PublicKey, TokenBalance } from "@solana/web3.js";
 import * as anchor from '@project-serum/anchor'
-import { readdirSync, readFileSync } from "fs";
+import fs, { readdirSync, readFileSync } from "fs";
 import { resolveManyRequest } from "../utils";
 function sleep(ms : number) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -10,12 +10,14 @@ export const getEditions = async ({ rpc, mint, supply }: { rpc: string, mint: st
     const connection = new anchor.web3.Connection(rpc);
     const master_edition = await MasterEdition.getPDA(new PublicKey(mint))
     const editionsMints: string[] = []
-    let lastSig: string | undefined = undefined
+    const transactions: Array<string|undefined> = []
+    let lastSig: string | undefined = "2LL9udjeoUaxcP1cuGdKmcNafuTGJXVJTShUs6aEF2Fq8bSpvbAox84jo5Wq4ARAQR49w2RAYKzDjxo2UAAXZtaY"
     while (editionsMints.length < supply) {
+        console.log(editionsMints.length)
         const fetched = await connection.getConfirmedSignaturesForAddress2(
-            master_edition,
+            new PublicKey("G6ifCoT3PZWT156oBtjmupGNT8Ss4LcAET9ybVW88UYx"),
             {
-                limit: 200,
+                limit: 1,
                 before: lastSig
             }
         ) as any;
@@ -28,14 +30,24 @@ export const getEditions = async ({ rpc, mint, supply }: { rpc: string, mint: st
                 for (let i = 0; i < parsedTxs.length; i++) {
                     const txOnInx = parsedTxs[i]
                     if (txOnInx !== null) {
+                        //console.log(txOnInx, "<<<<<<<--------")
                         const messages = txOnInx.meta?.logMessages || [];
                         let mintNew = false;
-                        for (const message of messages) {
-                            if (message.toLowerCase().includes("Mint New Edition from Master Edition".toLowerCase())) {
-                                mintNew = true
-                                break;
-                            }
+                        let specialMint = false;
+                        if (messages.includes("Program log: Instruction: MintNft") && messages.includes("Program log: Instruction: Burn")){
+                            mintNew = true
+                            transactions.push(lastSig)
                         }
+                        // for (const message of messages) {
+                        //      if (message.includes("Burn")){
+                        //         console.log(message, "Burn")
+                        //     }
+                        //     if (message.toLowerCase().includes("Instruction: MintNft".toLowerCase())) {
+                        //         mintNew = true
+                        //     } else if(message.toLowerCase().includes("Candy machine is empty!, Candy Machine Botting is taxed at 10000000 lamports".toLowerCase())) {
+                        //         mintNew = false
+                        //     }
+                        // }
                         if (mintNew) {
                             const postBalances = txOnInx?.meta?.postTokenBalances as Array<any> || [] as Array<any>;
                             let preBalanceMap: { [index: number]: TokenBalance } = {};
@@ -76,6 +88,10 @@ export const getEditions = async ({ rpc, mint, supply }: { rpc: string, mint: st
             break
         }
     }
+
+    const fs = require('fs');
+    fs.writeFileSync("mintsoddkey.json", JSON.stringify(editionsMints, null, 4));
+    fs.writeFileSync("transactions.json", JSON.stringify(transactions, null, 4));
     return editionsMints
 }
 
